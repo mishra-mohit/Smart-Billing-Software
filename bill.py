@@ -1,3 +1,4 @@
+import os
 from tkinter import *
 from tkinter import messagebox
 from turtle import right
@@ -5,6 +6,19 @@ import mysql.connector
 import random
 from reportlab.pdfgen import canvas
 import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+def get_db_connection():
+    return mysql.connector.connect(
+        host=os.getenv("DB_HOST"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        database=os.getenv("DB_NAME")
+    )
+
 
 # ======= Billing System Class =======
 class BillingSystem:
@@ -142,7 +156,7 @@ class BillingSystem:
             return
         
         try:
-            conn = mysql.connector.connect(host="localhost", user="root", password="7461", database="bill_db")
+            conn = get_db_connection()
             curr = conn.cursor()
             curr.execute("SELECT customer_name, phone, email, total_amount FROM bills WHERE bill_no = %s", (bill_no,))
             result = curr.fetchone()
@@ -179,7 +193,7 @@ class BillingSystem:
         self.txtarea.insert(END, f" {'='*55}\n")
         
         try:
-            conn = mysql.connector.connect(host="localhost", user="root", password="7461", database="bill_db")
+            conn = get_db_connection()
             curr = conn.cursor()
             
             query = "INSERT INTO bills (bill_no, customer_name, phone, email, total_amount) VALUES (%s, %s, %s, %s, %s)"

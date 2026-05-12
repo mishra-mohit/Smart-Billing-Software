@@ -19,20 +19,22 @@ PDF Engine: ReportLab
 Database Connector: mysql-connector-python
 
 🛠️ Installation & Setup
+
 Clone the Repository:
-Bash
 git clone https://github.com/mishra-mohit/Smart-Billing-Software.git
 cd Smart-Billing-Software
-Install Dependencies:
 
-Bash
+
+Install Dependencies:
 pip install mysql-connector-python reportlab
 Database Configuration:
 
 Open your MySQL terminal.
-Create a database: CREATE DATABASE bill_db;
-Create the table:
 
+Create a database: 
+CREATE DATABASE bill_db;
+
+Create the table:
 SQL
 CREATE TABLE bills (
     bill_no INT PRIMARY KEY,
@@ -44,4 +46,4 @@ CREATE TABLE bills (
 
 
 Run the Application:
-python billing_system.py
+python bill.py
